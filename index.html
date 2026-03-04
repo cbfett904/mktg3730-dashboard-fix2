@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MKTG 3730 — Social Tracker (WMU)</title>
+  <meta name="description" content="Static dashboard for MKTG 3730 follower + engagement tracking (WMU colors). Made by Cloe Fetterolf." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand__badge" aria-hidden="true">WMU</div>
+      <div class="brand__text">
+        <div class="brand__title">MKTG 3730 Social Tracker</div>
+        <div class="brand__sub">Follower + metrics dashboard • filter by class + platform • sortable table</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="btnReload" class="btn btn--ghost" type="button">Reload data</button>
+      <button id="btnDownloadCsv" class="btn btn--ghost" type="button">Download filtered CSV</button>
+      <a class="btn btn--primary" href="#tableCard">Jump to table</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="card__title">Filters</div>
+      <div class="filters">
+        <label class="field">
+          <span class="field__label">Search</span>
+          <input id="search" class="field__input" type="search" placeholder="Brand, team, metrics…" />
+        </label>
+        <label class="field">
+          <span class="field__label">Class</span>
+          <select id="filterClass" class="field__input"></select>
+        </label>
+        <label class="field">
+          <span class="field__label">Platform</span>
+          <select id="filterPlatform" class="field__input"></select>
+        </label>
+        <label class="field">
+          <span class="field__label">Team</span>
+          <select id="filterTeam" class="field__input"></select>
+        </label>
+        <div class="filter-actions">
+          <button id="btnClear" class="btn btn--ghost" type="button">Clear</button>
+        </div>
+      </div>
+      <div class="status" id="status">Ready.</div>
+    </section>
+
+    <section class="grid">
+      <section class="card">
+        <div class="card__title">Quick stats (filtered)</div>
+        <div class="kpis" id="kpis"></div>
+        <p class="muted small">
+          Tip: This dataset is sourced from your uploaded Excel workbook (Instagram Metrics + Facebook Metrics combined).
+        </p>
+      </section>
+
+      <section class="card">
+        <div class="card__title">Follower growth by brand (filtered)</div>
+        <div class="card__sub">If “Follower Growth” exists, we chart it. Otherwise we fall back to UP2 Followers.</div>
+        <canvas id="brandChart" height="140"></canvas>
+      </section>
+    </section>
+
+    <section class="grid">
+      <section class="card">
+        <div class="card__title">Totals by platform (filtered)</div>
+        <div class="card__sub">Counts rows per platform (Facebook vs Instagram).</div>
+        <canvas id="platformChart" height="140"></canvas>
+      </section>
+
+      <section class="card">
+        <div class="card__title">Top-line totals (filtered)</div>
+        <div class="card__sub">Shows totals for a few key columns if available.</div>
+        <canvas id="totalsChart" height="140"></canvas>
+      </section>
+    </section>
+
+    <section id="tableCard" class="card">
+      <div class="card__title">Sortable table</div>
+      <div class="table-wrap">
+        <table id="table">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="foot">
+        <div id="rowCount">0 rows</div>
+        <div class="muted small">Click a column header to sort. Shift+click adds a secondary sort.</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer__line"></div>
+      <div class="footer__text">Made by Cloe Fetterolf</div>
+    </footer>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
